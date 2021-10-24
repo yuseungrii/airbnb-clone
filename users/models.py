@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 
-class User(AbstractUser):
+class User(AbstractUser):  # AbstractUser(장고가 만들어 준) 안에 있는 모든것을 User로 복사
 
     """Custom User Model"""
 
@@ -18,11 +18,11 @@ class User(AbstractUser):
         (GENDER_OTHER, "Other"),
     )
 
-    LANGUATE_ENGLISH = "en"
+    LANGUAGE_ENGLISH = "en"
     LANGUAGE_KOREAN = "kr"
 
     LANGUAGE_CHOICES = (
-        (LANGUATE_ENGLISH, "English"),
+        (LANGUAGE_ENGLISH, "English"),
         (LANGUAGE_KOREAN, "Korean"),
     )
 
@@ -34,12 +34,14 @@ class User(AbstractUser):
         (CURRENCY_KRW, "KRW"),
     )
 
-    avatar = models.ImageField(null=True, blank=True)
+    avatar = models.ImageField(blank=True)
     gender = models.CharField(
-        default="Female", choices=GENDER_CHOICES, max_length=10, null=True
+        default="Female",
+        choices=GENDER_CHOICES,
+        max_length=10,
     )  # 싱글라인
-    bio = models.TextField(default="", blank=True)
-    birthdate = models.DateField(null=True)
-    langaute = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True)
-    currency = models.CharField(choices=CURRENCY_CHOICES, max_length=2, blank=True)
+    bio = models.TextField(blank=True)
+    birthdate = models.DateField(blank=True, null=True)
+    language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True)
+    currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True)
     superhost = models.BooleanField(default=False)
